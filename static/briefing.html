@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CTI Daily Insight — 프로젝트 브리핑</title>
+<style>
+  :root{
+    --ink:#171a20;
+    --paper:#eef1f2;
+    --paper-raised:#ffffff;
+    --ash:#5b6570;
+    --ash-soft:#8b93a0;
+    --line:#d5dbe0;
+    --signal:#b3762a;
+    --signal-soft:#f4e3c8;
+    --alert:#b8402f;
+    --alert-soft:#f6ded9;
+    --steel:#3d6d9c;
+    --steel-soft:#dde7f1;
+    --teal:#2f7d6f;
+    --teal-soft:#dcece8;
+    --grey-badge:#767f89;
+    --grey-badge-soft:#e6e8ea;
+    --code-bg:#e4e8ea;
+    --shadow: 0 1px 2px rgba(20,24,29,.04), 0 8px 24px -12px rgba(20,24,29,.12);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#e8ebee;
+      --paper:#12151b;
+      --paper-raised:#181c23;
+      --ash:#9aa3ad;
+      --ash-soft:#6b7480;
+      --line:#2a2f38;
+      --signal:#e2a03f;
+      --signal-soft:#3a2f1c;
+      --alert:#e0685a;
+      --alert-soft:#3a201c;
+      --steel:#7aa8d8;
+      --steel-soft:#1c2836;
+      --teal:#5fbfab;
+      --teal-soft:#17302b;
+      --grey-badge:#9aa3ad;
+      --grey-badge-soft:#252a32;
+      --code-bg:#1c2029;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px -12px rgba(0,0,0,.55);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e8ebee; --paper:#12151b; --paper-raised:#181c23; --ash:#9aa3ad; --ash-soft:#6b7480;
+    --line:#2a2f38; --signal:#e2a03f; --signal-soft:#3a2f1c; --alert:#e0685a; --alert-soft:#3a201c;
+    --steel:#7aa8d8; --steel-soft:#1c2836; --teal:#5fbfab; --teal-soft:#17302b;
+    --grey-badge:#9aa3ad; --grey-badge-soft:#252a32; --code-bg:#1c2029;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px -12px rgba(0,0,0,.55); color-scheme: dark;
+  }
+  :root[data-theme="light"]{
+    --ink:#171a20; --paper:#eef1f2; --paper-raised:#ffffff; --ash:#5b6570; --ash-soft:#8b93a0;
+    --line:#d5dbe0; --signal:#b3762a; --signal-soft:#f4e3c8; --alert:#b8402f; --alert-soft:#f6ded9;
+    --steel:#3d6d9c; --steel-soft:#dde7f1; --teal:#2f7d6f; --teal-soft:#dcece8;
+    --grey-badge:#767f89; --grey-badge-soft:#e6e8ea; --code-bg:#e4e8ea;
+    --shadow: 0 1px 2px rgba(20,24,29,.04), 0 8px 24px -12px rgba(20,24,29,.12); color-scheme: light;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family: -apple-system, "Segoe UI", "Pretendard", "Noto Sans KR", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--signal-soft); color:var(--ink); }
+
+  .mono{
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  a{ color:inherit; }
+
+  /* ---------- shell ---------- */
+  .shell{
+    display:grid;
+    grid-template-columns: 220px minmax(0,1fr);
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  @media (max-width: 880px){
+    .shell{ grid-template-columns: 1fr; }
+    .rail{ display:none; }
+  }
+
+  /* ---------- left rail ---------- */
+  .rail{
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    padding: 48px 20px 32px 32px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .rail-top .rail-mark{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    color:var(--signal);
+    text-transform:uppercase;
+    margin:0 0 6px;
+  }
+  .rail-top .rail-title{
+    font-size:15px;
+    font-weight:600;
+    line-height:1.35;
+    margin:0 0 28px;
+  }
+  .rail nav{ display:flex; flex-direction:column; gap:2px; }
+  .rail nav a{
+    text-decoration:none;
+    font-size:12.5px;
+    color:var(--ash-soft);
+    padding:7px 0 7px 14px;
+    border-left: 2px solid var(--line);
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .rail nav a .num{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    color:var(--ash-soft);
+    margin-right:8px;
+    font-size:11px;
+  }
+  .rail nav a.active{
+    color:var(--ink);
+    border-left-color: var(--signal);
+    font-weight:600;
+  }
+  .rail nav a.active .num{ color:var(--signal); }
+  .rail nav a:hover{ color:var(--ink); }
+  .rail-bottom{
+    font-size:11px;
+    color:var(--ash-soft);
+    line-height:1.6;
+  }
+  .rail-bottom a{ color:var(--ash); text-decoration:underline; text-underline-offset:2px; }
+
+  /* ---------- main ---------- */
+  main{ padding: 0 40px 40px; min-width:0; }
+  @media (max-width: 880px){ main{ padding: 0 20px 40px; } }
+
+  section.panel{
+    padding: 88px 0 64px;
+    border-bottom: 1px solid var(--line);
+  }
+  section.panel:last-of-type{ border-bottom:none; }
+
+  .eyebrow{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--signal);
+    margin:0 0 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    display:inline-block;
+    width:18px; height:1px;
+    background:var(--signal);
+  }
+
+  h1{
+    font-size: clamp(34px, 5.2vw, 54px);
+    line-height:1.08;
+    letter-spacing:-.01em;
+    margin:0 0 18px;
+    text-wrap:balance;
+    font-weight:700;
+  }
+  h2{
+    font-size: clamp(24px, 3vw, 32px);
+    line-height:1.18;
+    letter-spacing:-.005em;
+    margin:0 0 16px;
+    text-wrap:balance;
+    font-weight:700;
+  }
+  h3{
+    font-size:16px;
+    font-weight:700;
+    margin: 0 0 10px;
+  }
+  p{
+    font-size:15.5px;
+    line-height:1.72;
+    color:var(--ash);
+    max-width:62ch;
+    margin:0 0 14px;
+  }
+  .lede{
+    font-size:18px;
+    line-height:1.62;
+    color:var(--ink);
+    max-width:56ch;
+    opacity:.85;
+  }
+
+  .tag{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11px;
+    color:var(--ash-soft);
+    letter-spacing:.04em;
+  }
+
+  /* ---------- cover ---------- */
+  .cover{ padding-top:64px; }
+  .cover-meta{
+    display:flex; flex-wrap:wrap; gap:10px 22px;
+    margin-top:28px;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:12.5px;
+    color:var(--ash-soft);
+  }
+  .cover-meta strong{ color:var(--ink); font-weight:600; }
+  .cover-meta span{ display:flex; align-items:center; gap:8px; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 3px var(--teal-soft); }
+
+  /* ---------- badges ---------- */
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11.5px; font-weight:600;
+    padding: 4px 10px 4px 8px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+  .badge::before{ content:""; width:6px; height:6px; border-radius:50%; }
+  .badge.b-immediate{ background:var(--alert-soft); color:var(--alert); }
+  .badge.b-immediate::before{ background:var(--alert); }
+  .badge.b-backlog{ background:var(--steel-soft); color:var(--steel); }
+  .badge.b-backlog::before{ background:var(--steel); }
+  .badge.b-learn{ background:var(--teal-soft); color:var(--teal); }
+  .badge.b-learn::before{ background:var(--teal); }
+  .badge.b-none{ background:var(--grey-badge-soft); color:var(--grey-badge); }
+  .badge.b-none::before{ background:var(--grey-badge); }
+
+  /* ---------- verdict cards ---------- */
+  .verdict-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:28px;
+  }
+  @media (max-width:760px){ .verdict-grid{ grid-template-columns:1fr 1fr; } }
+  .vcard{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px 16px;
+    box-shadow:var(--shadow);
+  }
+  .vcard .badge{ margin-bottom:12px; }
+  .vcard p{ font-size:13px; line-height:1.55; margin:0; max-width:none; }
+  .vcard .ex{ margin-top:10px; font-size:12px; color:var(--ash-soft); font-style:normal; }
+
+  /* ---------- pipeline diagram ---------- */
+  .flow{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    overflow-x:auto;
+    padding: 32px 0 12px;
+    margin: 8px -4px 0;
+  }
+  .flow-node{
+    flex: 0 0 auto;
+    width:172px;
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 14px;
+    box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .flow-node .fn-idx{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:10.5px; color:var(--signal); letter-spacing:.08em;
+  }
+  .flow-node .fn-title{ font-size:13.5px; font-weight:700; line-height:1.3; }
+  .flow-node .fn-desc{ font-size:11.5px; color:var(--ash-soft); line-height:1.5; }
+  .flow-arrow{
+    flex:0 0 auto;
+    width:44px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ash-soft);
+    font-size:16px;
+  }
+
+  /* ---------- source table ---------- */
+  .src-wrap{ overflow-x:auto; margin-top:8px; }
+  table.src{
+    border-collapse:collapse;
+    width:100%;
+    min-width:640px;
+    font-size:13.5px;
+  }
+  table.src th{
+    text-align:left;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ash-soft);
+    font-weight:600;
+    padding:0 12px 10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.src td{
+    padding:11px 12px 11px 0;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+    color:var(--ink);
+  }
+  table.src td.muted{ color:var(--ash); }
+  table.src tr:last-child td{ border-bottom:none; }
+  .cat-chip{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:10.5px;
+    color:var(--ash-soft);
+  }
+
+  /* ---------- two col ---------- */
+  .twocol{
+    display:grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap:40px;
+    align-items:start;
+    margin-top:8px;
+  }
+  @media (max-width:820px){ .twocol{ grid-template-columns:1fr; } }
+
+  ul.plain{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  ul.plain li{
+    font-size:14.5px; line-height:1.6; color:var(--ash);
+    padding-left:16px; position:relative;
+  }
+  ul.plain li::before{
+    content:"—";
+    position:absolute; left:0; color:var(--signal);
+  }
+  ul.plain b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- post card (sample output) ---------- */
+  .post-card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .post-card .pc-head{
+    padding:20px 22px 16px;
+    border-bottom:1px solid var(--line);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .post-card .pc-title{ font-size:17px; font-weight:700; line-height:1.4; }
+  .post-card .pc-meta{
+    display:flex; flex-wrap:wrap; gap:8px 14px;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11px; color:var(--ash-soft);
+  }
+  .post-card .pc-body{ padding:18px 22px 22px; }
+  .post-card .pc-body dt{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--signal); margin:0 0 6px;
+  }
+  .post-card .pc-body dd{ margin:0 0 16px; font-size:14px; line-height:1.65; color:var(--ink); }
+  .post-card .pc-body dd:last-child{ margin-bottom:0; }
+  .tagpill-row{ display:flex; flex-wrap:wrap; gap:6px; }
+  .tagpill{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:10.5px; color:var(--ash);
+    background:var(--code-bg);
+    padding:3px 8px;
+    border-radius:6px;
+  }
+
+  /* ---------- code block ---------- */
+  pre.code{
+    background:var(--code-bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:12.5px;
+    line-height:1.7;
+    overflow-x:auto;
+    color:var(--ink);
+    margin:0;
+  }
+  pre.code .c-comment{ color:var(--ash-soft); }
+  pre.code .c-key{ color:var(--steel); }
+  pre.code .c-str{ color:var(--teal); }
+
+  /* ---------- ops timeline ---------- */
+  .ops-list{ display:flex; flex-direction:column; margin-top:20px; }
+  .ops-item{
+    display:grid;
+    grid-template-columns: 88px 1fr;
+    gap:20px;
+    padding:16px 0;
+    border-top:1px solid var(--line);
+  }
+  .ops-item:last-child{ border-bottom:1px solid var(--line); }
+  .ops-time{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:12px; color:var(--signal); padding-top:2px;
+  }
+  .ops-item h4{ margin:0 0 5px; font-size:14.5px; font-weight:700; }
+  .ops-item p{ margin:0; font-size:13.5px; max-width:56ch; }
+
+  /* ---------- stat row ---------- */
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:28px;
+  }
+  @media (max-width:760px){ .stat-row{ grid-template-columns:1fr 1fr; } }
+  .stat{
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px 16px;
+    background:var(--paper-raised);
+    box-shadow:var(--shadow);
+  }
+  .stat .stat-num{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:24px; font-weight:700; color:var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .stat-label{ font-size:12px; color:var(--ash-soft); margin-top:4px; }
+
+  /* ---------- scope callouts ---------- */
+  .scope-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:24px;
+  }
+  @media (max-width:700px){ .scope-grid{ grid-template-columns:1fr; } }
+  .scope-card{
+    border-radius:10px;
+    padding:18px 18px 16px;
+    border:1px solid var(--line);
+  }
+  .scope-card.in{ background:var(--teal-soft); border-color:transparent; }
+  .scope-card.out{ background:var(--grey-badge-soft); border-color:transparent; }
+  .scope-card .sc-head{
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    margin-bottom:10px; font-weight:700;
+  }
+  .scope-card.in .sc-head{ color:var(--teal); }
+  .scope-card.out .sc-head{ color:var(--grey-badge); }
+  .scope-card ul{ margin:0; padding-left:18px; }
+  .scope-card li{ font-size:13.5px; line-height:1.7; color:var(--ink); }
+
+  /* ---------- footer ---------- */
+  .foot{
+    padding: 56px 0 40px;
+    display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap;
+  }
+  .foot .foot-links{ display:flex; gap:18px; font-size:13px; }
+  .foot .foot-links a{ text-decoration:underline; text-underline-offset:3px; color:var(--ash); }
+  .foot .foot-note{ font-size:11.5px; color:var(--ash-soft); font-family:"JetBrains Mono", ui-monospace, monospace; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .rail nav a{ transition: color .15s ease, border-color .15s ease; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail-top">
+      <p class="rail-mark">CTI-INFO // BRIEFING</p>
+      <p class="rail-title">CTI Daily Insight<br>파이프라인 구축 브리핑</p>
+      <nav id="railnav">
+        <a href="#s-cover"><span class="num">00</span>Cover</a>
+        <a href="#s-why"><span class="num">01</span>배경 · 목적</a>
+        <a href="#s-arch"><span class="num">02</span>파이프라인 구조</a>
+        <a href="#s-context"><span class="num">03</span>판정 컨텍스트</a>
+        <a href="#s-sources"><span class="num">04</span>수집 소스</a>
+        <a href="#s-sample"><span class="num">05</span>판정 결과 예시</a>
+        <a href="#s-ops"><span class="num">06</span>운영 · 배포</a>
+        <a href="#s-scope"><span class="num">07</span>범위와 다음 단계</a>
+      </nav>
+    </div>
+    <div class="rail-bottom">
+      repo <a href="https://github.com/jeonck/cti-info" target="_blank" rel="noopener">jeonck/cti-info</a><br>
+      site <a href="https://jeonck.github.io/cti-info/" target="_blank" rel="noopener">jeonck.github.io/cti-info</a>
+    </div>
+  </aside>
+
+  <main>
+    <section class="panel cover" id="s-cover">
+      <p class="eyebrow">Internal Project Briefing</p>
+      <h1>매일 아침, 자동으로 걸러진<br>위협 인텔리전스 한 장.</h1>
+      <p class="lede">RSS·Reddit·Hacker News·GitHub에서 CTI 관련 자료를 수집하고, Claude가 개인 연구 컨텍스트 기준으로 행동 판정을 내려 정적 사이트에 게시하는 경량 파이프라인.</p>
+      <div class="cover-meta">
+        <span><span class="dot"></span><strong>Status</strong>&nbsp;운영 중 · 매일 KST 07:00 실행</span>
+        <span><strong>Stack</strong>&nbsp;Python · Hugo · GitHub Actions · Claude</span>
+        <span><strong>Repo</strong>&nbsp;jeonck/cti-info</span>
+      </div>
+    </section>
+
+    <section class="panel" id="s-why">
+      <p class="eyebrow">01 — 배경 · 목적</p>
+      <h2>왜 만들었나</h2>
+      <p class="lede">사이버 위협 정보를 <b style="color:var(--ink)">온톨로지·지식그래프</b>로 구조화해 잠재적 공격을 분석하고 상호운용성(STIX 등 표준)을 확보하는 것이 최종 목표다. 그 재료가 되는 CVE·TTP·위협행위자 동향은 매일 수십 건씩 흩어져 쏟아지는데, 사람이 매일 훑어 우선순위를 매기는 일은 지속하기 어렵다.</p>
+      <div class="twocol" style="margin-top:36px;">
+        <div>
+          <h3>이 파이프라인이 대신하는 일</h3>
+          <ul class="plain">
+            <li><b>수집</b> — 12개 RSS·3개 Reddit·4개 HN 쿼리·3개 GitHub 검색을 매일 자동으로 훑는다.</li>
+            <li><b>판정</b> — Claude가 <span class="mono">context.md</span>에 적힌 연구 관심사를 기준으로 각 항목의 행동 가치를 매긴다.</li>
+            <li><b>필터링</b> — "무관" 판정은 포스트를 만들지 않는다. 남는 것은 실제로 볼 가치가 있는 항목뿐.</li>
+            <li><b>기록</b> — 판정마다 근거와 다음 액션(예: ATT&CK 매핑, STIX 객체화)을 함께 남긴다.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>왜 정적 사이트인가</h3>
+          <p style="font-size:14px;">별도 서버·DB 없이 GitHub Actions가 크론 실행 → Hugo 빌드 → GitHub Pages 배포까지 전부 처리한다. 운영 비용은 사실상 0원이고, 판정 결과는 verdict·status·tag 축으로 바로 탐색할 수 있다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="s-arch">
+      <p class="eyebrow">02 — 파이프라인 구조</p>
+      <h2>수집 → 판정 → 게시, 4단계</h2>
+      <p>매일 UTC 22:00(KST 07:00) 한 번의 워크플로 실행이 아래 단계를 순서대로 밟는다.</p>
+
+      <div class="flow">
+        <div class="flow-node">
+          <span class="fn-idx">01 · COLLECT</span>
+          <span class="fn-title">소스 수집</span>
+          <span class="fn-desc">feeds.yaml 기준 RSS/Reddit/HN/GitHub 검색 실행, 소스별 오류 격리</span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <span class="fn-idx">02 · DEDUPE</span>
+          <span class="fn-title">중복 제거</span>
+          <span class="fn-desc">processed.json에 URL 해시 기록, 90일 보존하며 재판정 방지</span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <span class="fn-idx">03 · JUDGE</span>
+          <span class="fn-title">Claude 판정</span>
+          <span class="fn-desc">context.md를 시스템 프롬프트로 사용, 항목당 근거·액션·라벨 산출</span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <span class="fn-idx">04 · PUBLISH</span>
+          <span class="fn-title">빌드 · 배포</span>
+          <span class="fn-desc">무관 제외 포스트 커밋 → Hugo 빌드 → GitHub Pages 배포</span>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="stat-num">22</div><div class="stat-label">등록 소스 (RSS 12 · Reddit 3 · HN 4 · GitHub 3)</div></div>
+        <div class="stat"><div class="stat-num">~10s</div><div class="stat-label">항목당 판정 소요 (claude-code 백엔드)</div></div>
+        <div class="stat"><div class="stat-num">30</div><div class="stat-label">실행당 최대 판정 건수 (MAX_ITEMS)</div></div>
+        <div class="stat"><div class="stat-num">14d</div><div class="stat-label">"학습" 항목 자동 완료 처리 기준</div></div>
+      </div>
+    </section>
+
+    <section class="panel" id="s-context">
+      <p class="eyebrow">03 — 판정 컨텍스트</p>
+      <h2>context.md — 행동 판정의 유일한 기준</h2>
+      <p>여기 없는 주제는 원칙적으로 "무관" 또는 "학습"으로 판정한다. 현재 SOC처럼 지켜야 할 인프라는 없으므로, "즉시조치"의 기준은 <b style="color:var(--ink)">구조화·분석 관점에서 즉시 확인해야 할 자료</b>로 재정의했다.</p>
+
+      <div class="verdict-grid">
+        <div class="vcard">
+          <span class="badge b-immediate">🔥 즉시조치</span>
+          <p>활발히 익스플로잇 중인 CVE, 긴급 패치가 필요한 자료</p>
+          <p class="ex">예 — CISA KEV 신규 등재, PoC 공개된 Critical CVE</p>
+        </div>
+        <div class="vcard">
+          <span class="badge b-backlog">📌 백로그</span>
+          <p>추적할 가치는 있으나 긴급하지 않은 항목</p>
+          <p class="ex">예 — 신규 CVE 공개(익스플로잇 미확인), 벤더 보안 권고</p>
+        </div>
+        <div class="vcard">
+          <span class="badge b-learn">📚 학습</span>
+          <p>구조화·TTP·표준·위협행위자 동향 관심 분야</p>
+          <p class="ex">예 — ATT&CK 매핑 사례, STIX/TAXII·온톨로지 논의</p>
+        </div>
+        <div class="vcard">
+          <span class="badge b-none">⋯ 무관</span>
+          <p>그 외 전부 — 포스트를 생성하지 않는다</p>
+          <p class="ex">예 — 제품 마케팅, CTI와 무관한 일반 IT 뉴스</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:40px;">판정 우선순위 (context.md 발췌)</h3>
+      <div class="ops-list" style="margin-top:12px;">
+        <div class="ops-item"><div class="ops-time mono">1</div><div><h4>KEV·활발한 익스플로잇</h4><p>CISA KEV 신규 등재, PoC 공개 직후의 고위험 취약점 → 즉시조치 후보</p></div></div>
+        <div class="ops-item"><div class="ops-time mono">2</div><div><h4>신규 CVE·보안 권고</h4><p>익스플로잇 미확인, 긴급하지 않은 패치 권고 → 백로그 후보</p></div></div>
+        <div class="ops-item"><div class="ops-time mono">3</div><div><h4>CTI 구조화·TTP·행위자 동향</h4><p>즉시조치·백로그에 해당하지 않으나 관심 분야에 해당 → 학습 후보</p></div></div>
+        <div class="ops-item"><div class="ops-time mono">4</div><div><h4>그 외</h4><p>일반 뉴스, 명시적 제외 항목, 마케팅성 글 → 무관</p></div></div>
+      </div>
+    </section>
+
+    <section class="panel" id="s-sources">
+      <p class="eyebrow">04 — 수집 소스</p>
+      <h2>feeds.yaml — 22개 소스, 3개 카테고리</h2>
+      <p>등록 전 모든 RSS URL을 파이프라인의 실제 User-Agent로 curl 검증(HTTP 200)했다. 일부 소스는 기본 curl UA에는 403을 반환하지만 파이프라인 UA로는 정상 응답한다.</p>
+
+      <div class="src-wrap">
+        <table class="src">
+          <thead>
+            <tr><th>카테고리</th><th>소스</th><th>유형</th><th>비고</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="cat-chip">종합 뉴스</span></td><td>The Hacker News · BleepingComputer · Krebs on Security</td><td class="muted">RSS</td><td class="muted">일반 보안 헤드라인, 무관 필터링 비중 높음</td></tr>
+            <tr><td><span class="cat-chip">CVE·익스플로잇</span></td><td>SANS ISC · Exploit-DB · CISA Advisories · Rapid7</td><td class="muted">RSS</td><td class="muted">즉시조치·백로그 판정의 주 소스</td></tr>
+            <tr><td><span class="cat-chip">위협 인텔리전스</span></td><td>Unit42 · Mandiant · Talos · CrowdStrike · WeLiveSecurity · MS Security</td><td class="muted">RSS</td><td class="muted">TTP·위협행위자 분석, 학습 판정의 주 소스</td></tr>
+            <tr><td><span class="cat-chip">커뮤니티</span></td><td>r/netsec · r/blueteamsec · r/Malware</td><td class="muted">Reddit</td><td class="muted">GitHub Actions IP에서 403 빈발 — 소스별 오류 격리로 무해</td></tr>
+            <tr><td><span class="cat-chip">토론</span></td><td>"CVE" · "ransomware" · "threat intelligence" · "zero-day"</td><td class="muted">HN 쿼리</td><td class="muted">hnrss.org 기반, 포인트 임계값으로 노이즈 제어</td></tr>
+            <tr><td><span class="cat-chip">코드·도구</span></td><td>topic:threat-intelligence · topic:malware-analysis · topic:stix2</td><td class="muted">GitHub 검색</td><td class="muted">신규 저장소 중 스타 수 기준 필터</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="s-sample">
+      <p class="eyebrow">05 — 판정 결과 예시</p>
+      <h2>실제 dry-run 판정 1건</h2>
+      <p>The Hacker News의 "휴면 GitHub 계정을 이용한 정찰 캠페인" 기사가 어떻게 판정·기록되는지.</p>
+
+      <div class="post-card" style="margin-top:24px;">
+        <div class="pc-head">
+          <div class="pc-meta">
+            <span class="badge b-learn">📚 학습</span>
+            <span>status: 대기</span>
+            <span>source: The Hacker News</span>
+          </div>
+          <div class="pc-title">유령 GitHub 계정을 이용한 기업 조직 정찰 캠페인</div>
+          <div class="tagpill-row">
+            <span class="tagpill">#threat-actor-ttp</span>
+            <span class="tagpill">#reconnaissance</span>
+            <span class="tagpill">#github-api-abuse</span>
+          </div>
+        </div>
+        <div class="pc-body">
+          <dl>
+            <dt>근거</dt>
+            <dd>GitHub API를 통한 기업 조직 정찰 캠페인은 위협 행위자 TTP(정찰 단계) 분석 및 ATT&CK 매핑 연구에 직접 해당</dd>
+            <dt>액션</dt>
+            <dd>보고서 원문 확인 후 T1589 / T1590(Gather Victim Identity / Network Information) 하위 기법으로 STIX Course of Action 객체 초안 작성</dd>
+          </dl>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px;">생성되는 포스트 프론트매터</h3>
+      <pre class="code" style="margin-top:12px;"><span class="c-key">title</span>: <span class="c-str">"유령 GitHub 계정을 이용한 기업 조직 정찰 캠페인"</span>
+<span class="c-key">date</span>: 2026-07-09T22:16:03-05:00
+<span class="c-key">verdict</span>: <span class="c-str">"학습"</span>
+<span class="c-key">tags</span>: [<span class="c-str">"threat-actor-ttp"</span>, <span class="c-str">"reconnaissance"</span>, <span class="c-str">"github-api-abuse"</span>]
+<span class="c-key">source</span>: <span class="c-str">"https://thehackernews.com/..."</span>
+<span class="c-key">status</span>: <span class="c-str">"대기"</span>  <span class="c-comment"># 사람이 확인하면 완료로 변경</span></pre>
+    </section>
+
+    <section class="panel" id="s-ops">
+      <p class="eyebrow">06 — 운영 · 배포</p>
+      <h2>인프라는 GitHub Actions 하나로 끝난다</h2>
+      <div class="twocol">
+        <div>
+          <div class="ops-list">
+            <div class="ops-item">
+              <div class="ops-time mono">07:00</div>
+              <div><h4>매일 자동 수집·판정</h4><p>KST 기준 매일 아침 워크플로가 실행되어 수집·판정·커밋·배포까지 자동 진행</p></div>
+            </div>
+            <div class="ops-item">
+              <div class="ops-time mono">Auth</div>
+              <div><h4>Claude 구독 인증</h4><p><span class="mono">claude setup-token</span>으로 발급한 OAuth 토큰을 Secret으로 등록 — API 크레딧 과금 없이 구독 사용량으로 처리</p></div>
+            </div>
+            <div class="ops-item">
+              <div class="ops-time mono">Control</div>
+              <div><h4>일시중지 · 재개</h4><p>수동 워크플로(Pipeline Control) 또는 스크립트로 수집만 중지 가능, 배포 파이프라인은 별도로 유지</p></div>
+            </div>
+            <div class="ops-item">
+              <div class="ops-time mono">Weekly</div>
+              <div><h4>금요일 리뷰</h4><p>처리한 백로그·학습 항목을 완료 처리하고, 판정이 어긋나면 context.md를 보강</p></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>알려진 제약</h3>
+          <ul class="plain">
+            <li>Reddit API가 GitHub Actions IP에서 종종 403 — 소스별 오류 격리로 다른 소스는 정상 수집</li>
+            <li>GitHub 검색은 <span class="mono">created:&gt;N일</span> 조건상 0건인 날이 흔함 (정상 동작)</li>
+            <li>크레딧 부족·인증 만료 시 즉시 중단하고 워크플로를 실패로 표시 (의도된 동작)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="s-scope">
+      <p class="eyebrow">07 — 범위와 다음 단계</p>
+      <h2>지금은 경량, 확장은 열어둔다</h2>
+      <p>초기 구상은 OpenCTI/MISP 연동, STIX/TAXII 정규화, VirusTotal·GreyNoise 등 enrichment API를 포함한 본격 CTI 플랫폼이었다. 현재 파이프라인은 그 전 단계 — 텍스트 판정 기반의 경량 트리아지 레이어로 의도적으로 범위를 좁혔다.</p>
+
+      <div class="scope-grid">
+        <div class="scope-card in">
+          <div class="sc-head">현재 범위</div>
+          <ul>
+            <li>RSS/Reddit/HN/GitHub 텍스트 수집</li>
+            <li>Claude 기반 행동 판정 (즉시조치/백로그/학습/무관)</li>
+            <li>Hugo 정적 사이트 + GitHub Pages 배포</li>
+            <li>verdict/status/tag 축 탐색</li>
+          </ul>
+        </div>
+        <div class="scope-card out">
+          <div class="sc-head">범위 밖 (확장 후보)</div>
+          <ul>
+            <li>OpenCTI / MISP 연동, 그래프 저장소</li>
+            <li>STIX/TAXII 정규화 파이프라인</li>
+            <li>VirusTotal · GreyNoise 등 IOC enrichment API</li>
+            <li>실시간 SOC 대응 자동화</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">
+      <div class="foot-links">
+        <a href="https://github.com/jeonck/cti-info" target="_blank" rel="noopener">GitHub Repository</a>
+        <a href="https://jeonck.github.io/cti-info/" target="_blank" rel="noopener">Live Site</a>
+      </div>
+      <div class="foot-note">CTI-INFO / DAILY-INSIGHT-PIPELINE / 2026</div>
+    </div>
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('#railnav a'));
+    var sections = links.map(function(a){
+      return document.getElementById(a.getAttribute('href').slice(1));
+    });
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          var idx = sections.indexOf(entry.target);
+          links.forEach(function(l){ l.classList.remove('active'); });
+          if (idx > -1) links[idx].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach(function(s){ if (s) io.observe(s); });
+  })();
+</script>
+</body>
+</html>
