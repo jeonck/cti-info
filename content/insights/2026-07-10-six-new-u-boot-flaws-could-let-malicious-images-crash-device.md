@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["firmware-vulnerability", "u-boot", "cve"]
 source: "https://thehackernews.com/2026/07/six-new-u-boot-flaws-could-let.html"
 source_name: "The Hacker News"
-status: "대기"
+status: "완료"
 ---
 - **근거:** U-Boot 부트로더 취약점(CVE 신규 공개, 펌웨어 공격 경로)으로 CVE·익스플로잇 관심 분야에 해당
 - **액션:** Binarly 리포트에서 CVE 번호 확인 후 STIX Vulnerability 객체로 정규화, MITRE ATT&CK T1542(Pre-OS Boot) 매핑 여부 검토
