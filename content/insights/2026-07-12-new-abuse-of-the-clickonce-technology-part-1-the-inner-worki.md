@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["ttp-analysis", "initial-access", "malware-delivery"]
 source: "https://www.crowdstrike.com/en-us/blog/new-abuse-of-the-clickonce-technology-part-one/"
 source_name: "CrowdStrike Blog"
-status: "대기"
+status: "완료"
 ---
 - **근거:** ClickOnce 기술 남용 기법 분석으로 TTP/악성코드 배포 벡터 연구에 해당
 - **액션:** MITRE ATT&CK T1204(User Execution) 또는 T1566(Phishing) 하위 기법과 ClickOnce 남용 패턴을 매핑해 STIX Course of Action 오브젝트로 초안 작성
