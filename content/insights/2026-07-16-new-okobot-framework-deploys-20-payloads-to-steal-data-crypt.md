@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["malware-analysis", "ttp-mapping", "credential-theft"]
 source: "https://www.bleepingcomputer.com/news/security/new-okobot-framework-deploys-20-payloads-to-steal-data-crypto/"
 source_name: "BleepingComputer"
-status: "대기"
+status: "완료"
 ---
 - **근거:** 신규 악성코드 프레임워크의 다중 페이로드 배포 및 정보 탈취 행위 패턴은 TTP·악성코드 분석 관심 분야에 해당
 - **액션:** OkoBot 프레임워크의 20개 페이로드 목록과 행위 패턴을 MITRE ATT&CK TTP로 매핑하여 STIX Bundle로 구조화
