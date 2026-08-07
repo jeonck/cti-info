@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["cve", "linux-kernel", "privilege-escalation"]
 source: "https://www.bleepingcomputer.com/news/linux/new-refluxfs-linux-flaw-lets-attackers-gain-root-privileges/"
 source_name: "BleepingComputer"
-status: "대기"
+status: "완료"
 ---
 - **근거:** Linux 커널 XFS 파일시스템 로컬 권한 상승 취약점(CVE-2026-64600) — 직접 운영하는 인프라는 없으나 CVE/익스플로잇 관심 분야에 해당
 - **액션:** CVE-2026-64600 STIX Vulnerability 객체 생성 및 MITRE ATT&CK T1068(Exploitation for Privilege Escalation) 매핑 후 지식그래프에 추가
