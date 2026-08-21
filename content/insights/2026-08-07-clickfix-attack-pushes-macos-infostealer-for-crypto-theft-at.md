@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["ttp-analysis", "infostealer", "clickfix"]
 source: "https://www.bleepingcomputer.com/news/security/clickfix-attack-pushes-macos-infostealer-for-crypto-theft-attacks/"
 source_name: "BleepingComputer"
-status: "대기"
+status: "완료"
 ---
 - **근거:** ClickFix 기법 + macOS infostealer의 TTP 및 행위 패턴이 공격 기법(TTP) 관심 분야에 해당
 - **액션:** Go-based infostealer의 MITRE ATT&CK 매핑(T1555 Credentials from Password Stores, T1539 Steal Web Session Cookie 등) 정리 후 STIX Malware 객체로 모델링 초안 작성
