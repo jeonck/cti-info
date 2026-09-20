@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["malware-analysis", "ttp-mapping", "defense-evasion"]
 source: "https://thehackernews.com/2026/09/four-revstealer-linked-modules-disable.html"
 source_name: "The Hacker News"
-status: "대기"
+status: "완료"
 ---
 - **근거:** REVSTEALER 관련 신규 악성코드 모듈 분석으로 TTP 및 악성코드 행위 패턴 연구에 해당
 - **액션:** Elastic Security Labs 원문 리포트에서 ProManager/WinUpdate/SoftManager 모듈의 MITRE ATT&CK TTP(Defense Evasion, Impact 등)를 추출해 STIX 2.1 Malware/Attack-Pattern 객체로 모델링
