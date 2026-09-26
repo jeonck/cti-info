@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["actively-exploited", "patch-management", "cve"]
 source: "https://thehackernews.com/2026/09/papercut-replaces-emergency-patches.html"
 source_name: "The Hacker News"
-status: "대기"
+status: "완료"
 ---
 - **근거:** 활발히 익스플로잇 중인 취약점의 공식 패치 교체 사례로, CTI 구조화 관점에서 KEV 등재 및 TTP 분석 자료로 활용 가능
 - **액션:** PaperCut NG/MF 두 CVE를 STIX CourseOfAction 및 Vulnerability 객체로 모델링하고 CISA KEV 등재 여부 확인
