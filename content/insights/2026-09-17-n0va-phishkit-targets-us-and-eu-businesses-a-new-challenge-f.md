@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["phishing-ttp", "identity-compromise", "mitre-attack"]
 source: "https://thehackernews.com/2026/09/n0va-phishkit-targets-us-and-eu.html"
 source_name: "The Hacker News"
-status: "대기"
+status: "완료"
 ---
 - **근거:** APT/피싱 캠페인 TTP 분석으로 공격자 행위 패턴(자격증명 탈취, 정상 인증 흐름 남용) 이해에 해당
 - **액션:** N0va phishkit의 공격 흐름을 MITRE ATT&CK(T1566 Phishing, T1078 Valid Accounts)에 매핑해 STIX Campaign/TTP 객체로 모델링 검토
