@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["supply-chain-attack", "npm-malware", "ttp-analysis"]
 source: "https://www.bleepingcomputer.com/news/security/malicious-npm-packages-evade-install-script-defenses-at-runtime/"
 source_name: "BleepingComputer"
-status: "대기"
+status: "완료"
 ---
 - **근거:** npm 공급망 공격의 신규 TTP(런타임 은닉 기법)로, 공격 기법 분석 및 MITRE ATT&CK 매핑 관심 분야에 해당
 - **액션:** indexed-btree 캠페인 분석 내용을 STIX Malware/Attack-Pattern 객체로 모델링하고 T1195(Supply Chain Compromise) 서브테크닉에 매핑
