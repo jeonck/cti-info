@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["android-spyware", "ttp-analysis", "malware-behavior"]
 source: "https://thehackernews.com/2026/09/corp-mdm-spyware-targets-logistics.html"
 source_name: "The Hacker News"
-status: "대기"
+status: "완료"
 ---
 - **근거:** 물류 부문을 표적으로 한 Android 스파이웨어 캠페인으로, 악성코드 행위 패턴 및 TTP 분석 관점에서 관심 분야에 해당
 - **액션:** Corp MDM 스파이웨어의 행위 패턴(SMS 탈취, 통화 리디렉션)을 MITRE ATT&CK Mobile 매트릭스에 매핑하고 STIX Malware 객체로 초안 작성
