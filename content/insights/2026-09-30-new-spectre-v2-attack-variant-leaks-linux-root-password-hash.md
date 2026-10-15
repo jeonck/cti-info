@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["spectre-v2", "hardware-vulnerability", "credential-access"]
 source: "https://www.bleepingcomputer.com/news/security/new-spectre-v2-attack-variant-leaks-linux-root-password-hash-in-minutes/"
 source_name: "BleepingComputer"
-status: "대기"
+status: "완료"
 ---
 - **근거:** CVE/익스플로잇 관심 분야 — 신규 Spectre v2 변종(BTR) 공격 기법 분석으로 TTP 및 취약점 구조화 연구에 해당
 - **액션:** BTR 공격 기법을 MITRE ATT&CK T1212(Exploitation for Credential Access)에 매핑하고 STIX Course of Action 객체로 모델링 초안 작성
