@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["exploit-db", "arbitrary-file-write", "poc-public"]
 source: "https://www.exploit-db.com/exploits/52691"
 source_name: "Exploit-DB"
-status: "대기"
+status: "완료"
 ---
 - **근거:** 신규 PoC 공개된 취약점으로, CVE/익스플로잇 공개 여부 추적 관심 분야에 해당
 - **액션:** Exploit-DB 52691 내용을 검토해 TigerGraph 취약점의 공격 벡터·영향 범위를 STIX Vulnerability 객체로 구조화 초안 작성
