@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["zero-day", "cve", "apple-ios"]
 source: "https://www.macrumors.com/2026/02/11/ios-26-3-security-vulnerabilities/"
 source_name: "HN (zero-day)"
-status: "대기"
+status: "완료"
 ---
 - **근거:** Apple iOS/macOS 제로데이 취약점으로 CISA KEV 등재 또는 CVE 구조화 분석 관심 대상
 - **액션:** 해당 CVE 번호 확인 후 STIX Vulnerability 객체로 모델링하고 CISA KEV 등재 여부 체크
