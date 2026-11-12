@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["threat-actor", "apt", "ecrime"]
 source: "https://www.crowdstrike.com/en-us/blog/crowdstrike-2026-legal-threat-landscape-report/"
 source_name: "CrowdStrike Blog"
-status: "대기"
+status: "완료"
 ---
 - **근거:** APT/eCrime 위협 행위자 동향 및 캠페인 분석 리포트로 TTP·위협행위자 동향 관심 분야에 해당
 - **액션:** 리포트에서 중국 연계 APT 및 eCrime 그룹의 신규 TTP를 추출해 MITRE ATT&CK 매핑 후 STIX Bundle로 구조화
