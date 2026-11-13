@@ -5,7 +5,7 @@ verdict: "학습"
 tags: ["north-korean-apt", "ai-in-ttp", "threat-actor-tradecraft"]
 source: "https://www.microsoft.com/en-us/security/blog/2026/10/29/tracking-ai-adoption-in-north-korean-threat-actor-tradecraft/"
 source_name: "Microsoft Security Blog"
-status: "대기"
+status: "완료"
 ---
 - **근거:** 북한 APT 그룹의 AI 활용 TTP 분석 리포트 — 위협 행위자 동향 및 공격 기법 관심 분야에 해당
 - **액션:** 리포트 내 AI 활용 TTP를 MITRE ATT&CK 기법으로 매핑하고 STIX Threat Actor/Attack Pattern 객체로 구조화 초안 작성
